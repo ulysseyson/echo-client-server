@@ -8,6 +8,7 @@
 #endif // __linux
 #include <thread>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -75,6 +76,8 @@ void recvThread(int sd) {
         }
 	}
 	printf("disconnected\n");
+    // remove from client list when disconnected
+    client_list.erase(remove(client_list.begin(), client_list.end(), sd), client_list.end());
 	::close(sd);
 }
 
